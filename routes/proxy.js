@@ -18,6 +18,8 @@ router.get('/', (req, res, next) => {
     } else {
         req.session.redirect = redirect_address;
         req.session.kind = kind;
+        if (req.query.ingress_session)
+            req.session.ingress_session = req.query.ingress_session;
         res.render('proxy_confirmation', {
             page_title: req._("Oauth Confirmation"),
             redirect_address: redirect_address,

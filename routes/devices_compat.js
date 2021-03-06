@@ -35,6 +35,8 @@ router.get('/oauth2/callback/:kind', (req, res, next) => {
 }, (req, res, next) => {
     if (req.session.redirect) {
         const server_redirect = req.session.redirect + '/devices' + req.url;
+        if (req.session.ingress_session)
+            res.cookie("ingress_session", req.session.ingress_session, { maxAge: 10000 });
         res.redirect(303, server_redirect);
     } else {
         const kind = req.params.kind;
